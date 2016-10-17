@@ -18,12 +18,19 @@ int main() {
 
 void RunGame() {
 	char endgamechar;
+	bool valid = false;
+	std::cout << "You are about to get your word to guess. If you guess incorrectly too many times, \nthe man will be hanged! Good luck.";
+	
+	while (!valid)
+	{
+		std::cout << "\nAre you ready to play? y/n: ";
+		std::cin >> endgamechar;
+		if (endgamechar != ('n', 'N', 'y', 'Y'))
+			valid = true;
+		else	std::cout << "That is not a valid input, try again.";
+	}
 
-	std::cout << "Here is your word to guess. If you guess incorrectly, the man will be hanged! Good luck.";
-	std::cout << "\nAre you ready to play? y/n: ";
-	std::cin >> endgamechar;
-
-	if (endgamechar == 'n')
+	if (endgamechar == ('n'||'N'))
 		endgame = true;
 	//if (endgamechar =='y')
 
