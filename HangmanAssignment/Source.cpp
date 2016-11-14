@@ -1,6 +1,7 @@
 #include <iostream>
 
 void RunGame();
+void Start();
 
 bool endgame = false;
 
@@ -16,7 +17,8 @@ int main() {
 
 }
 
-void RunGame() {
+void RunGame() 
+{
 	char endgamechar;
 	bool valid = false;
 	std::cout << "You are about to get your word to guess. If you guess incorrectly too many times, \nthe man will be hanged! Good luck.";
@@ -30,10 +32,20 @@ void RunGame() {
 		else	std::cout << "That is not a valid input, try again.";
 	}
 
-	if (endgamechar == ('n'||'N'))
-		endgame = true;
-	//if (endgamechar =='y')
+	if (endgamechar == ('n' || 'N'))
+	{
+		char sureQuit;
+		std::cout << "\nAre you sure you want to quit? y/n: ";
+		std::cin >> sureQuit;
+		if (sureQuit == ('y'||'Y'))
+			endgame = true;
+	}
 
+	if (endgamechar == 'y')
+		Start();
+}
 
+void Start()
+{
 
 }
