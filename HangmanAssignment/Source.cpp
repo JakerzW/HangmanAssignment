@@ -1,15 +1,18 @@
 #include <iostream>
 
+void RunIntro();
 void RunGame();
-void Start();
+void WordArrays();
 
 bool endgame = false;
 
-int main() {
+int main() 
+{
 	std::cout << "Welcome to Hangman!";
 
-	while (!endgame) {
-		RunGame();
+	while (!endgame) 
+	{
+		RunIntro();
 	}
 
 	return 0;
@@ -17,7 +20,7 @@ int main() {
 
 }
 
-void RunGame() 
+void RunIntro() 
 {
 	char endgamechar;
 	bool valid = false;
@@ -42,10 +45,15 @@ void RunGame()
 	}
 
 	if (endgamechar == 'y')
-		Start();
+		RunGame();
 }
 
-void Start()
+void RunGame()
 {
 
+}
+
+void WordArrays()
+{
+	char WordBank[20][12];
 }
