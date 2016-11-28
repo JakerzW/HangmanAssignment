@@ -2,68 +2,96 @@
 #include <iomanip>
 #include <stdio.h>
 #include <stdlib.h>
+#include <Windows.h>
 
-void RunIntro();
-void RunGame();
-void WordArrays();
+void runGame();
+void wordArrays();
+int menu(void);
 
 bool endgame = false;
 
 int main() 
 {
-	std::cout << "";
-	std::cout << " __     __   _________   ___    __   __________   __        __   _________   ___    __\n";
-	std::cout << "|  |   |  | |   ___   | |   \\  |  | |   _______| |  \\      /  | |   ___   | |   \\  |  |\n";
-	std::cout << "|  |   |  | |  |___|  | |    \\ |  | |  |         |   \\    /   | |  |___|  | |    \\ |  |\n";
-	std::cout << "|  |___|  | |   ___   | |     \\|  | |  |   ____  |    \\__/    | |   ___   | |     \\|  |\n";
-	std::cout << "|   ___   | |  |   |  | |  |\\     | |  |  |_   | |   _    _   | |  |   |  | |  |\\     | \n";
-	std::cout << "|  |   |  | |  |   |  | |  | \\    | |  |____|  | |  | \\__/ |  | |  |   |  | |  | \\    |\n";
-	std::cout << "|__|   |__| |__|   |__| |__|  \\___| |__________| |__|      |__| |__|   |__| |__|  \\___| \n";
-
-	while (!endgame) 
+	int menuOption = 0;
+	while (!endgame)
 	{
-		RunIntro();
+		menuOption = menu();
+		if (menuOption == 3)
+		{
+			bool validChoice = false;
+			char sureQuit;
+			while (!validChoice)
+			{
+				system("CLS");
+				std::cout << "Are you sure you want to quit? y/n: ";
+				std::cin >> sureQuit;
+				if (sureQuit != ('y', 'Y', 'n', 'N'))
+				{
+					std::cout << "That is not a valid option, try again.";
+					Sleep(2000);
+					system("CLS");
+				}
+				else
+					validChoice = true;
+				if (sureQuit == ('y' || 'Y'))
+				{
+					endgame = true;
+					system("CLS");
+				}
+				if (sureQuit == ('n' || 'N'))
+					menu();
+			}
+		}
 	}
-
 	return 0;
-	system("PAUSE");
-
+	//system("PAUSE");
 }
 
-void RunIntro() 
+int menu(void)
 {
-	char endgamechar;
-	bool valid = false;
-	std::cout << "You are about to get your word to guess. If you guess incorrectly too many times, \nthe man will be hanged! Good luck.";
-	
-	while (!valid)
-	{
-		std::cout << "\nAre you ready to play? y/n: ";
-		std::cin >> endgamechar;
-		if (endgamechar != ('n', 'N', 'y', 'Y'))
-			valid = true;
-		else	std::cout << "That is not a valid input, try again.";
-	}
+	int choice = -1;
+	bool test = false;
 
-	if (endgamechar == ('n' || 'N'))
-	{
-		char sureQuit;
-		std::cout << "\nAre you sure you want to quit? y/n: ";
-		std::cin >> sureQuit;
-		if (sureQuit == ('y'||'Y'))
-			endgame = true;
-	}
+	do {
+		choice = 0;
+		system("CLS");
+		//std::cout << "Please Select Your Option from the Menu\n";
+		std::cout << " __     __   _________   ___    __   __________   __        __   _________   ___    __\n";
+		std::cout << "|  |   |  | |   ___   | |   \\  |  | |   _______| |  \\      /  | |   ___   | |   \\  |  |\n";
+		std::cout << "|  |   |  | |  |___|  | |    \\ |  | |  |         |   \\    /   | |  |___|  | |    \\ |  |\n";
+		std::cout << "|  |___|  | |   ___   | |     \\|  | |  |   ____  |    \\__/    | |   ___   | |     \\|  |\n";
+		std::cout << "|   ___   | |  |   |  | |  |\\     | |  |  |_   | |   _    _   | |  |   |  | |  |\\     | \n";
+		std::cout << "|  |   |  | |  |   |  | |  | \\    | |  |____|  | |  | \\__/ |  | |  |   |  | |  | \\    |\n";
+		std::cout << "|__|   |__| |__|   |__| |__|  \\___| |__________| |__|      |__| |__|   |__| |__|  \\___| \n";
+		std::cout << "---------------------------------------------------------------------------------------\n";
+		std::cout << std::setw(36) << "Play Hangman" << std::setw(26) << "Press  1  \n";
+		std::cout << std::setw(36) << "Instructions" << std::setw(26) << "Press  2  \n";
+		std::cout << std::setw(28) << "Exit" << std::setw(34) << "Press  3  \n";
+		std::cout << std::endl << std::setw(45) << "Choice: ";
+		std::cin >> choice;
 
-	if (endgamechar == 'y')
-		RunGame();
+		if ((choice > 3) || (choice < 0) || (choice == 0))
+		{
+			system("CLS");
+			test = false;
+			std::cout << "Invalid Selection\n";
+			Sleep(2000);
+		}
+		else
+		{
+			test = true;
+		}
+
+	} while (test == false);
+	return (choice);
 }
 
-void RunGame()
+void runGame()
 {
 
 }
 
-void WordArrays()
+void wordArrays()
 {
 	char WordBank[20][12];
 
