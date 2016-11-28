@@ -7,6 +7,7 @@
 void runGame();
 void wordArrays();
 int menu(void);
+void exit();
 
 bool endgame = false;
 
@@ -25,20 +26,23 @@ int main()
 				system("CLS");
 				std::cout << "Are you sure you want to quit? y/n: ";
 				std::cin >> sureQuit;
-				if (sureQuit != ('y', 'Y', 'n', 'N'))
+				if (sureQuit == 'y' || sureQuit == 'Y' || sureQuit == 'n' || sureQuit == 'N')
 				{
-					std::cout << "That is not a valid option, try again.";
-					Sleep(2000);
-					system("CLS");
+					validChoice = true;
 				}
 				else
-					validChoice = true;
-				if (sureQuit == ('y' || 'Y'))
 				{
+					std::cout << "That is not a valid option, try again.";
+					Sleep(1500);
+					system("CLS");
+				}
+				if (sureQuit == 'y' || sureQuit == 'Y')
+				{
+					exit();
 					endgame = true;
 					system("CLS");
 				}
-				if (sureQuit == ('n' || 'N'))
+				if (sureQuit == 'n' || sureQuit == 'N')
 					menu();
 			}
 		}
@@ -97,6 +101,12 @@ void wordArrays()
 
 }
 
+void exit()
+{
+	system("CLS");
+	std::cout << "Thanks for playing!";
+	Sleep(2000);
+}
 /*int menu(void);
 bool play_game(void);
 void instructions(void);
