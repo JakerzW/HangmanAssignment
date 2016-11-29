@@ -8,8 +8,7 @@ void endGame();
 void showInstructions();
 void runGame();
 void wordArrays();
-int menu(void);
-void exit();
+int menu();
 
 bool endgame = false;
 
@@ -33,7 +32,7 @@ int main()
 	//system("PAUSE");
 }
 
-int menu(void)
+int menu()
 {
 	int choice = -1;
 	bool test = false;
@@ -72,7 +71,6 @@ int menu(void)
 
 void endGame()
 {
-	endGame();
 	bool validChoice = false;
 	char sureQuit;
 	while (!validChoice)
@@ -92,7 +90,9 @@ void endGame()
 		}
 		if (sureQuit == 'y' || sureQuit == 'Y')
 		{
-			exit();
+			system("CLS");
+			std::cout << "Thanks for playing!";
+			Sleep(2000);
 			endgame = true;
 			system("CLS");
 		}
@@ -103,25 +103,24 @@ void endGame()
 
 void showInstructions()
 {
-
+	char menuReturn;
+	bool returnValid = false;
+	system("CLS");
+	std::cout << "You will be shown a word that has been blanked out,\nleaving only the number of dashes to in place of the word or phrase.\nYour job is to guess a letter at a time until you finally unveil the name of the game.\nIf you guess incorrectly, you will lose one of your five lives. \nAs soon as you have lost all of your lives, you lose the game.\nGood luck!\n\n";
+	system("PAUSE");
+	menu();
 }
 
 void runGame()
 {
-
+	
 }
 
 void wordArrays()
 {
-	//char WordBank[25][25] = ("battlefield","battlefront","halo","skyrim","oblivion","minecraft","fifa","csgo","pacman","pokemon","bioshock","portal","chivalry","gta","fallout","dota","overwatch","hearthstone");
+	char WordBank[25][20] = { "battlefield","battlefront","mass effect","halo","skyrim","oblivion","minecraft","fifa","counter strike","pacman","pokemon","bioshock","portal","chivalry","grand theft auto","fallout","dota","overwatch","hearthstone","world of warcraft","guild wars","assassins creed","call of duty","crash bandicoot","rayman" };
 }
 
-void exit()
-{
-	system("CLS");
-	std::cout << "Thanks for playing!";
-	Sleep(2000);
-}
 /*int menu(void);
 bool play_game(void);
 void instructions(void);
