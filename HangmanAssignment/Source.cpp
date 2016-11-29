@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <Windows.h>
 
+void endGame();
+void showInstructions();
 void runGame();
 void wordArrays();
 int menu(void);
@@ -17,34 +19,14 @@ int main()
 	while (!endgame)
 	{
 		menuOption = menu();
-		if (menuOption == 3)
+		switch (menuOption)
 		{
-			bool validChoice = false;
-			char sureQuit;
-			while (!validChoice)
-			{
-				system("CLS");
-				std::cout << "Are you sure you want to quit? y/n: ";
-				std::cin >> sureQuit;
-				if (sureQuit == 'y' || sureQuit == 'Y' || sureQuit == 'n' || sureQuit == 'N')
-				{
-					validChoice = true;
-				}
-				else
-				{
-					std::cout << "That is not a valid option, try again.";
-					Sleep(1500);
-					system("CLS");
-				}
-				if (sureQuit == 'y' || sureQuit == 'Y')
-				{
-					exit();
-					endgame = true;
-					system("CLS");
-				}
-				if (sureQuit == 'n' || sureQuit == 'N')
-					menu();
-			}
+			case 1:	runGame();
+				break;
+			case 2: showInstructions();
+				break;
+			case 3: endGame();
+				break;
 		}
 	}
 	return 0;
@@ -59,7 +41,6 @@ int menu(void)
 	do {
 		choice = 0;
 		system("CLS");
-		//std::cout << "Please Select Your Option from the Menu\n";
 		std::cout << " __     __   _________   ___    __   __________   __        __   _________   ___    __\n";
 		std::cout << "|  |   |  | |   ___   | |   \\  |  | |   _______| |  \\      /  | |   ___   | |   \\  |  |\n";
 		std::cout << "|  |   |  | |  |___|  | |    \\ |  | |  |         |   \\    /   | |  |___|  | |    \\ |  |\n";
@@ -73,7 +54,6 @@ int menu(void)
 		std::cout << std::setw(28) << "Exit" << std::setw(34) << "Press  3  \n";
 		std::cout << std::endl << std::setw(45) << "Choice: ";
 		std::cin >> choice;
-
 		if ((choice > 3) || (choice < 0) || (choice == 0))
 		{
 			system("CLS");
@@ -85,9 +65,45 @@ int menu(void)
 		{
 			test = true;
 		}
-
-	} while (test == false);
+	} 
+	while (test == false);
 	return (choice);
+}
+
+void endGame()
+{
+	endGame();
+	bool validChoice = false;
+	char sureQuit;
+	while (!validChoice)
+	{
+		system("CLS");
+		std::cout << "Are you sure you want to quit? y/n: ";
+		std::cin >> sureQuit;
+		if (sureQuit == 'y' || sureQuit == 'Y' || sureQuit == 'n' || sureQuit == 'N')
+		{
+			validChoice = true;
+		}
+		else
+		{
+			std::cout << "That is not a valid option, try again.";
+			Sleep(1500);
+			system("CLS");
+		}
+		if (sureQuit == 'y' || sureQuit == 'Y')
+		{
+			exit();
+			endgame = true;
+			system("CLS");
+		}
+		if (sureQuit == 'n' || sureQuit == 'N')
+			menu();
+	}
+}
+
+void showInstructions()
+{
+
 }
 
 void runGame()
@@ -97,8 +113,7 @@ void runGame()
 
 void wordArrays()
 {
-	char WordBank[20][12];
-
+	//char WordBank[25][25] = ("battlefield","battlefront","halo","skyrim","oblivion","minecraft","fifa","csgo","pacman","pokemon","bioshock","portal","chivalry","gta","fallout","dota","overwatch","hearthstone");
 }
 
 void exit()
@@ -207,12 +222,5 @@ void instructions(void)
 {
 	system("CLS");
 	std::cout << "Instructions would be here\n";
-	Sleep(2000);
-}
-
-void exit_game(void)
-{
-	system("CLS");
-	std::cout << "Exit Selected Thankyou , and Goodbye!\n";
 	Sleep(2000);
 }*/

@@ -1,4 +1,4 @@
 ﻿  Source.cpp
-c:\users\jaker\documents\github\hangmanassignment\hangmanassignment\source.cpp(100): warning C4101: 'WordBank': unreferenced local variable
+c:\users\jaker\documents\github\hangmanassignment\hangmanassignment\source.cpp(102): warning C4717: 'endGame': recursive on all control paths, function will cause runtime stack overflow
   HangmanAssignment.vcxproj -> C:\Users\Jaker\Documents\GitHub\HangmanAssignment\Debug\HangmanAssignment.exe
   HangmanAssignment.vcxproj -> C:\Users\Jaker\Documents\GitHub\HangmanAssignment\Debug\HangmanAssignment.pdb (Full PDB)
