@@ -7,8 +7,12 @@
 void endGame();
 void showInstructions();
 void runGame();
-void wordArrays();
+void wordArrays(char x);
 int menu();
+
+char WordBank[25][20] = { "battlefield","battlefront","mass effect","halo","skyrim","oblivion","minecraft","fifa","counter strike","pacman","pokemon","bioshock","portal","chivalry","grand theft auto","fallout","dota","overwatch","hearthstone","world of warcraft","guild wars","assassins creed","call of duty","crash bandicoot","rayman" };
+char WordChosen[20];
+char WordChosenHidden[20];
 
 bool endgame = false;
 
@@ -113,13 +117,36 @@ void showInstructions()
 
 void runGame()
 {
+	int randWord;
+	bool validInput = false;
+
+	std::cout << WordChosenHidden << std::endl;
 	
+	bool winloss = false;
+	while (!winloss)
+	{
+		char letterGuessed;
+		std::cout << "Enter your guess: ";
+		std::cin >> letterGuessed;
+		//input validation here 
+		validInput = true;
+	}
+}
+
+void checkLetter(char x)
+{
+
 }
 
 void wordArrays()
 {
 	char WordBank[25][20] = { "battlefield","battlefront","mass effect","halo","skyrim","oblivion","minecraft","fifa","counter strike","pacman","pokemon","bioshock","portal","chivalry","grand theft auto","fallout","dota","overwatch","hearthstone","world of warcraft","guild wars","assassins creed","call of duty","crash bandicoot","rayman" };
-}
+	char WordChosen[20];
+	char WordChosenHidden[20];
+
+	//randomise word chosen
+	//insert word into word chosen array and word chosen hidden should be filled with the same number of asterisks as the word chosen
+}	
 
 /*int menu(void);
 bool play_game(void);

@@ -1,4 +1,3 @@
 ﻿  Source.cpp
-c:\users\jaker\documents\github\hangmanassignment\hangmanassignment\source.cpp(106): warning C4101: 'menuReturn': unreferenced local variable
-  HangmanAssignment.vcxproj -> C:\Users\Jaker\Documents\GitHub\HangmanAssignment\Debug\HangmanAssignment.exe
-  HangmanAssignment.vcxproj -> C:\Users\Jaker\Documents\GitHub\HangmanAssignment\Debug\HangmanAssignment.pdb (Full PDB)
+c:\users\jaker\documents\github\hangmanassignment\hangmanassignment\source.cpp(110): warning C4101: 'menuReturn': unreferenced local variable
+c:\users\jaker\documents\github\hangmanassignment\hangmanassignment\source.cpp(128): error C2059: syntax error: '}'
