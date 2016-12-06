@@ -7,7 +7,7 @@
 void endGame();
 void showInstructions();
 void runGame();
-void wordArrays(char x);
+void wordArrays();
 int menu();
 
 char WordBank[25][20] = { "battlefield","battlefront","mass effect","halo","skyrim","oblivion","minecraft","fifa","counter strike","pacman","pokemon","bioshock","portal","chivalry","grand theft auto","fallout","dota","overwatch","hearthstone","world of warcraft","guild wars","assassins creed","call of duty","crash bandicoot","rayman" };
@@ -120,6 +120,16 @@ void runGame()
 	int randWord;
 	bool validInput = false;
 
+	randWord = std::rand() % 25 + 1;
+	//WordChosen = WordBank[randWord];
+	for (int i = 0; i < 20; i++)	//copies random word into array
+	{
+		WordChosen[i] = WordBank[randWord][i];
+	}
+	for (int i = 0; i < WordChosen.length; i++)
+	{
+
+	}
 	std::cout << WordChosenHidden << std::endl;
 	
 	bool winloss = false;
