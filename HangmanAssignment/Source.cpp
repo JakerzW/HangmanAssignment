@@ -117,29 +117,31 @@ void showInstructions()
 
 void runGame()
 {
-	int randWord;
+	char LettersGuessed[26];
 	bool validInput = false;
+	bool letterGuessed = true;
+	bool winLoss = false;
 
-	randWord = std::rand() % 25 + 1;
-	//WordChosen = WordBank[randWord];
-	for (int i = 0; i < 20; i++)	//copies random word into array
-	{
-		WordChosen[i] = WordBank[randWord][i];
-	}
-	for (int i = 0; i < WordChosen.length; i++)
-	{
-
-	}
+	setUpWord();
+	system("CLS");
 	std::cout << WordChosenHidden << std::endl;
 	
-	bool winloss = false;
-	while (!winloss)
+	while (!winLoss)
 	{
-		char letterGuessed;
+		char guess;
+		int guessArrayPos = 1;
+
 		std::cout << "Enter your guess: ";
-		std::cin >> letterGuessed;
-		//input validation here 
-		validInput = true;
+		std::cin >> guess;
+		while (validInput)
+		{
+			for (int i = 0; i < guessArrayPos; i++)
+			{
+				if (letterGuessed == LettersGuessed[i])
+					validInput = false;
+			}
+			guessArrayPos++;
+		}
 	}
 }
 
@@ -148,11 +150,20 @@ void checkLetter(char x)
 
 }
 
-void wordArrays()
+void setUpWord()
 {
-	char WordBank[25][20] = { "battlefield","battlefront","mass effect","halo","skyrim","oblivion","minecraft","fifa","counter strike","pacman","pokemon","bioshock","portal","chivalry","grand theft auto","fallout","dota","overwatch","hearthstone","world of warcraft","guild wars","assassins creed","call of duty","crash bandicoot","rayman" };
-	char WordChosen[20];
-	char WordChosenHidden[20];
+	int randWord;
+	randWord = std::rand() % 25 + 1;
+	//WordChosen = WordBank[randWord];
+	for (int i = 0; i < 20; i++)	//copies random word into array
+	{
+		WordChosen[i] = WordBank[randWord][i];
+	}
+	for (int i = 0; i < 20; i++)
+	{
+		if (WordChosen[i] != ' ')
+			WordChosenHidden[i] = '_';
+	}
 
 	//randomise word chosen
 	//insert word into word chosen array and word chosen hidden should be filled with the same number of asterisks as the word chosen
