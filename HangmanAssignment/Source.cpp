@@ -161,7 +161,6 @@ void setUpWord()
 {
 	int randWord;
 	randWord = std::rand() % 25 + 1;
-	//WordChosen = WordBank[randWord];
 	for (int i = 0; i < 20; i++)	//copies random word into array
 	{
 		WordChosen[i] = WordBank[randWord][i];
