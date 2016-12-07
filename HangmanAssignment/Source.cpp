@@ -16,7 +16,7 @@ char WordChosenHidden[20];
 
 bool endgame = false;
 
-int main() 
+int main() //sets up the game
 {
 	int menuOption = 0;
 	while (!endgame)
@@ -33,10 +33,9 @@ int main()
 		}
 	}
 	return 0;
-	//system("PAUSE");
 }
 
-int menu()
+int menu() //main menu
 {
 	int choice = -1;
 	bool test = false;
@@ -44,7 +43,7 @@ int menu()
 	do {
 		choice = 0;
 		system("CLS");
-		std::cout << " __     __   _________   ___    __   __________   __        __   _________   ___    __\n";
+		std::cout << " __     __   _________   ___    __   __________   __        __   _________   ___    __\n";		//outputs hangman in big letters
 		std::cout << "|  |   |  | |   ___   | |   \\  |  | |   _______| |  \\      /  | |   ___   | |   \\  |  |\n";
 		std::cout << "|  |   |  | |  |___|  | |    \\ |  | |  |         |   \\    /   | |  |___|  | |    \\ |  |\n";
 		std::cout << "|  |___|  | |   ___   | |     \\|  | |  |   ____  |    \\__/    | |   ___   | |     \\|  |\n";
@@ -57,7 +56,7 @@ int menu()
 		std::cout << std::setw(28) << "Exit" << std::setw(34) << "Press  3  \n";
 		std::cout << std::endl << std::setw(45) << "Choice: ";
 		std::cin >> choice;
-		if ((choice > 3) || (choice < 0) || (choice == 0))
+		if ((choice > 3) || (choice < 0) || (choice == 0))	//checks choice for the menu
 		{
 			system("CLS");
 			test = false;
@@ -73,7 +72,7 @@ int menu()
 	return (choice);
 }
 
-void endGame()
+void endGame() //function used to end the game
 {
 	bool validChoice = false;
 	char sureQuit;
@@ -82,17 +81,17 @@ void endGame()
 		system("CLS");
 		std::cout << "Are you sure you want to quit? y/n: ";
 		std::cin >> sureQuit;
-		if (sureQuit == 'y' || sureQuit == 'Y' || sureQuit == 'n' || sureQuit == 'N')
+		if (sureQuit == 'y' || sureQuit == 'Y' || sureQuit == 'n' || sureQuit == 'N')	//checks validation of input for game exit
 		{
 			validChoice = true;
 		}
-		else
+		else	//returns if option isn't valid
 		{
 			std::cout << "That is not a valid option, try again.";
 			Sleep(1500);
 			system("CLS");
 		}
-		if (sureQuit == 'y' || sureQuit == 'Y')
+		if (sureQuit == 'y' || sureQuit == 'Y')	//ends game
 		{
 			system("CLS");
 			std::cout << "Thanks for playing!";
@@ -100,12 +99,12 @@ void endGame()
 			endgame = true;
 			system("CLS");
 		}
-		if (sureQuit == 'n' || sureQuit == 'N')
+		if (sureQuit == 'n' || sureQuit == 'N')	//returns to main menu
 			menu();
 	}
 }
 
-void showInstructions()
+void showInstructions()	//shows the instructions and then returns to menu
 {
 	char menuReturn;
 	bool returnValid = false;
@@ -115,11 +114,13 @@ void showInstructions()
 	menu();
 }
 
-void runGame()
+void runGame()	//the main bulk of the game
 {
-	char LettersGuessed[26];
+	char guessedArray[26];
 	bool validInput = false;
 	bool letterGuessed = false;
+	bool spaceInGuessedArray = false;
+	bool letterCorrect = false;
 	bool winLoss = false;
 
 	setUpWord();
@@ -128,152 +129,64 @@ void runGame()
 	
 	while (!winLoss)
 	{
-		char guess, validCheck;
-		int guessArrayPos = 1;
+		char guess, validCheck = 'a';
+		int correctArrayPos = 1;
+		int guessedArrayPos = 1;
 
-		std::cout << "Enter your guess: ";
-		std::cin >> guess;
-		while (!validInput || validCheck <= 'z')
+		while (!validInput)
 		{
-			validCheck = 'a';
-			if (guess == validCheck)
-				validInput = true;
-			validCheck++;
-		}
-		while (!letterGuessed)
-		{
-			for (int i = 0; i < guessArrayPos; i++)
+			std::cout << "Enter your guess: ";
+			std::cin >> guess;
+			while ((!validInput) && (validCheck <= 'z'))
 			{
-				if (guess == LettersGuessed[i])
-					letterGuessed = true;
+				validCheck = 'a';
+				if (guess == validCheck)
+					validInput = true;
+				validCheck++;
 			}
-			guessArrayPos++;
-		}
+			if (validInput)
+			{
+				while ((!letterGuessed) && (!spaceInGuessedArray))
+				{
+					int i = 0;
+
+					if (guessedArray[i] == ' ')
+						spaceInGuessedArray = true;
+					if (guess == guessedArray[i])
+						letterGuessed = true;
+
+					guessedArrayPos++;
+					i++;
+				}
+				while (!letterCorrect)
+				{
+					for (int i = 0; i < correctArrayPos; i++)
+					{
+						if (guess == WordChosen[i])
+							letterCorrect = true;
+					}
+					correctArrayPos++;
+				}
+			}
+			else
+			{
+				std::cout << "That input is not valid, please try again.";
+			}
+		}			
 	}
-}
-
-void checkLetter(char x)
-{
-
 }
 
 void setUpWord()
 {
 	int randWord;
 	randWord = std::rand() % 25 + 1;
-	for (int i = 0; i < 20; i++)	//copies random word into array
+	for (int i = 0; i < 20; i++)	
 	{
-		WordChosen[i] = WordBank[randWord][i];
+		WordChosen[i] = WordBank[randWord][i];	//inserts random word into new array
 	}
 	for (int i = 0; i < 20; i++)
 	{
 		if (WordChosen[i] != ' ')
-			WordChosenHidden[i] = '_';
+			WordChosenHidden[i] = '_';	//converts random word into underscores
 	}
-
-	//randomise word chosen
-	//insert word into word chosen array and word chosen hidden should be filled with the same number of asterisks as the word chosen
 }	
-
-/*int menu(void);
-bool play_game(void);
-void instructions(void);
-void exit_game(void);
-
-int main(void)
-{
-	bool exit_flag = false;
-	int option = 0;
-
-	while (exit_flag == false)
-	{
-		option = menu();
-		std::cout << "\n Choice " << option << " Selected\n";
-		switch (option)
-		{
-		case  1:
-		{
-			system("CLS");
-			std::cout << "Guessing Game Selected Enjoy!!\n";
-			bool result = play_game();
-			if (result == true)
-			{
-				std::cout << "Congrats you won !! \n";
-			}
-			else
-			{
-				std::cout << "Hard Luck you lost !!\n";
-			}
-			exit_flag = false;
-			break;
-		}
-		case  2:
-		{		instructions();
-		exit_flag = false;
-		break;
-		}
-		case  3:
-		{		exit_game();
-		exit_flag = true;
-		break;
-		}
-
-		default:
-		{
-			std::cout << "Error Condition.. Exit program\n";
-			exit_flag = true;
-			break;
-		}
-		} //end switch                                  
-	} //end while               
-	std::cin.get();
-	return 0;
-}
-
-
-/*int menu(void)
-{
-	int choice = -1;
-	bool test = false;
-
-	do {
-		choice = 0;
-		system("CLS");
-		std::cout << "Please Select Your Option from the Menu\n";
-		std::cout << "---------------------------------------\n";
-		std::cout << "Play Guessing Game" << std::setw(20) << "Press  1  \n";
-		std::cout << "Instructions" << std::setw(26) << "Press  2  \n";
-		std::cout << "Exit" << std::setw(34) << "Press  3  \n";
-		std::cout << "Choice -> ";
-		std::cin >> choice;
-
-		if ((choice > 3) || (choice < 0) || (choice == 0))
-		{
-			system("CLS");
-			test = false;
-			std::cout << "Invalid Selection\n";
-			Sleep(2000);
-		}
-		else
-		{
-			test = true;
-		}
-
-	} while (test == false);
-	return (choice);
-}
-
-bool play_game(void)
-{
-	system("CLS");
-	std::cout << "Play game code\n";
-	Sleep(2000);
-	return true;
-}
-
-void instructions(void)
-{
-	system("CLS");
-	std::cout << "Instructions would be here\n";
-	Sleep(2000);
-}*/
