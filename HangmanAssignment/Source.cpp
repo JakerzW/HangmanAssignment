@@ -13,6 +13,7 @@ int menu();
 char WordBank[25][20] = { "battlefield","battlefront","mass effect","halo","skyrim","oblivion","minecraft","fifa","counter strike","pacman","pokemon","bioshock","portal","chivalry","grand theft auto","fallout","dota","overwatch","hearthstone","world of warcraft","guild wars","assassins creed","call of duty","crash bandicoot","rayman" };
 char WordChosen[20];
 char WordChosenHidden[20];
+char GuessedChars[26];
 
 bool endgame = false;
 
@@ -122,16 +123,25 @@ void runGame()	//the main bulk of the game
 	bool spaceInGuessedArray = false;
 	bool letterCorrect = false;
 	bool winLoss = false;
+	int lives = 10;
 
 	setUpWord();
 	system("CLS");
-	std::cout << WordChosenHidden << std::endl;
+	//std::cout << WordChosenHidden << std::endl;
 	
 	while (!winLoss)
 	{
 		char guess, validCheck = 'a';
 		int correctArrayPos = 1;
 		int guessedArrayPos = 1;
+
+		std::cout << "Your word is: " << WordChosenHidden << "\n\n";
+		std::cout << "Lives left: " << lives << std::endl;
+		/*for (size_t i = 0; i < 27; i++)
+		{
+
+		}*/
+		std::cout << "Characters guessed: " << GuessedChars << "\n\n";
 
 		while (!validInput)
 		{
@@ -180,13 +190,10 @@ void setUpWord()
 {
 	int randWord;
 	randWord = std::rand() % 25 + 1;
-	for (int i = 0; i < 20; i++)	
+	strcpy(WordChosen, WordBank[randWord]);
+	int wordLength = strlen(WordChosen);
+	for (int i = 0; i < wordLength; i++)
 	{
-		WordChosen[i] = WordBank[randWord][i];	//inserts random word into new array
-	}
-	for (int i = 0; i < 20; i++)
-	{
-		if (WordChosen[i] != ' ')
-			WordChosenHidden[i] = '_';	//converts random word into underscores
+		WordChosenHidden[i] = '_';
 	}
 }	
