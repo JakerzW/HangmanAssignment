@@ -7,7 +7,7 @@
 void endGame();
 void showInstructions();
 void runGame();
-void wordArrays();
+void setUpWord();
 int menu();
 
 char WordBank[25][20] = { "battlefield","battlefront","mass effect","halo","skyrim","oblivion","minecraft","fifa","counter strike","pacman","pokemon","bioshock","portal","chivalry","grand theft auto","fallout","dota","overwatch","hearthstone","world of warcraft","guild wars","assassins creed","call of duty","crash bandicoot","rayman" };
@@ -119,7 +119,7 @@ void runGame()
 {
 	char LettersGuessed[26];
 	bool validInput = false;
-	bool letterGuessed = true;
+	bool letterGuessed = false;
 	bool winLoss = false;
 
 	setUpWord();
@@ -128,17 +128,24 @@ void runGame()
 	
 	while (!winLoss)
 	{
-		char guess;
+		char guess, validCheck;
 		int guessArrayPos = 1;
 
 		std::cout << "Enter your guess: ";
 		std::cin >> guess;
-		while (validInput)
+		while (!validInput || validCheck <= 'z')
+		{
+			validCheck = 'a';
+			if (guess == validCheck)
+				validInput = true;
+			validCheck++;
+		}
+		while (!letterGuessed)
 		{
 			for (int i = 0; i < guessArrayPos; i++)
 			{
-				if (letterGuessed == LettersGuessed[i])
-					validInput = false;
+				if (guess == LettersGuessed[i])
+					letterGuessed = true;
 			}
 			guessArrayPos++;
 		}
