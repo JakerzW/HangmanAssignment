@@ -1,6 +1,7 @@
 ﻿  Source.cpp
 d:\documents\github\hangmanassignment\hangmanassignment\source.cpp(111): warning C4101: 'menuReturn': unreferenced local variable
-d:\documents\github\hangmanassignment\hangmanassignment\source.cpp(240): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+d:\documents\github\hangmanassignment\hangmanassignment\source.cpp(255): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+d:\documents\github\hangmanassignment\hangmanassignment\source.cpp(257): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(119): note: see declaration of 'strcpy'
   HangmanAssignment.vcxproj -> D:\Documents\GitHub\HangmanAssignment\Debug\HangmanAssignment.exe
   HangmanAssignment.vcxproj -> D:\Documents\GitHub\HangmanAssignment\Debug\HangmanAssignment.pdb (Full PDB)

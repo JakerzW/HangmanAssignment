@@ -11,7 +11,7 @@ void setUpWord();
 void hangStatus(int state);
 int menu();
 
-char WordBank[25][20] = { "battlefield","battlefront","mass effect","halo","skyrim","oblivion","minecraft","fifa","counter strike","pacman","pokemon","bioshock","portal","chivalry","grand theft auto","fallout","dota","overwatch","hearthstone","world of warcraft","guild wars","assassins creed","call of duty","crash bandicoot","rayman" };
+char WordBank[25][20] = { "battlefield","battlefront","mass_effect","halo","skyrim","oblivion","minecraft","fifa","counter_strike","pacman","pokemon","bioshock","portal","chivalry","grand_theft_auto","fallout","dota","overwatch","hearthstone","world_of_warcraft","guild_wars","assassins_creed","call_of_duty","crash_bandicoot","rayman" };
 char WordChosen[20];
 char WordChosenHidden[20];
 int wordLength = 0;
@@ -175,8 +175,19 @@ void runGame()	//the main bulk of the game
 					std::cout << guessedArray[i] << " ";
 				}
 			}
+
+			if (strcmp(WordChosen, WordChosenHidden) == 0)	//repeat check if missed
+			{
+				system("CLS");
+				std::cout << "Congratulations!\n  You've WON!\n\n";
+				win = true;
+				system("PAUSE");
+			}
+
 			std::cout << "\n\nEnter your guess: ";
 			char guess = 0;
+			letterGuessed = false;
+			letterCorrect = false;
 			std::cin >> guess;
 			char validCheck = 'a';
 			while ((!validInput) && (validCheck <= 'z'))
@@ -187,7 +198,7 @@ void runGame()	//the main bulk of the game
 			}
 			if (validInput)
 			{
-				for (int i = 0; i < 26; i++)
+				for (int i = 1; i < (guessCount + 1); i++)
 				{
 					if (guess == guessedArray[i])
 						letterGuessed = true; 
@@ -229,14 +240,20 @@ void runGame()	//the main bulk of the game
 			}
 		}			
 	}
-	std::cout << " I'm sorry!\nYou've LOST!";
-	system("PAUSE");
+	if (lives == 0)
+	{
+		system("CLS");
+		std::cout << " I'm sorry!\nYou've LOST!\n\n";
+		system("PAUSE");
+	}
+	
 }
 
 void setUpWord()
 {
 	int randWord;
-	randWord = std::rand() % 25 + 1;
+	srand(time(NULL));
+	randWord = rand() % 25 + 1;
 	strcpy(WordChosen, WordBank[randWord]);
 	wordLength = strlen(WordChosen);
 	for (int i = 0; i < wordLength; i++)
