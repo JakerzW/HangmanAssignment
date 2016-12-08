@@ -8,12 +8,13 @@ void endGame();
 void showInstructions();
 void runGame();
 void setUpWord();
+void hangStatus(int state);
 int menu();
 
 char WordBank[25][20] = { "battlefield","battlefront","mass effect","halo","skyrim","oblivion","minecraft","fifa","counter strike","pacman","pokemon","bioshock","portal","chivalry","grand theft auto","fallout","dota","overwatch","hearthstone","world of warcraft","guild wars","assassins creed","call of duty","crash bandicoot","rayman" };
 char WordChosen[20];
 char WordChosenHidden[20];
-char GuessedChars[26];
+int wordLength = 0;
 
 bool endgame = false;
 
@@ -110,7 +111,9 @@ void showInstructions()	//shows the instructions and then returns to menu
 	char menuReturn;
 	bool returnValid = false;
 	system("CLS");
-	std::cout << "You will be shown a word that has been blanked out,\nleaving only the number of dashes to in place of the word or phrase.\nYour job is to guess a letter at a time until you finally unveil the name of the game.\nIf you guess incorrectly, you will lose one of your five lives. \nAs soon as you have lost all of your lives, you lose the game.\nGood luck!\n\n";
+	std::cout << "You will be shown a word that has been blanked out,\nleaving only the number of dashes to in place of the word or phrase.\n";
+	std::cout << "Your job is to guess a letter at a time until you finally unveil the name of the game.\nIf you guess incorrectly, you will lose one of your five lives. ";
+	std::cout << "\nAs soon as you have lost all of your lives, you lose the game.\nNote that you must use lower case letters.\n\nGood luck!\n\n";
 	system("PAUSE");
 	menu();
 }
@@ -122,68 +125,112 @@ void runGame()	//the main bulk of the game
 	bool letterGuessed = false;
 	bool spaceInGuessedArray = false;
 	bool letterCorrect = false;
-	bool winLoss = false;
+	bool win = false;
 	int lives = 10;
+	int guessCount = 0;
 
 	setUpWord();
 	system("CLS");
 	//std::cout << WordChosenHidden << std::endl;
 	
-	while (!winLoss)
+	while ((!win) && (lives > 0))
 	{
-		char guess, validCheck = 'a';
-		int correctArrayPos = 1;
-		int guessedArrayPos = 1;
+		system("CLS");
+		validInput = false;
 
-		std::cout << "Your word is: " << WordChosenHidden << "\n\n";
-		std::cout << "Lives left: " << lives << std::endl;
-		/*for (size_t i = 0; i < 27; i++)
+		/*std::cout << "Hangman!\n\n";
+		hangStatus(lives);
+		std::cout << "Your word is: ";
+		for (int i = 0; i < wordLength; i++)
 		{
-
+			std::cout << WordChosenHidden[i] << " ";
+		}
+		std::cout << "\n\nLives left: " << lives << "\n";
+		
+		if (guessCount > 0)
+		{
+			std::cout << "Characters guessed: ";
+			for (int i = 1; i < (guessCount + 1); i++)
+			{
+				std::cout << guessedArray[i] << " ";
+			}
 		}*/
-		std::cout << "Characters guessed: " << GuessedChars << "\n\n";
 
 		while (!validInput)
 		{
-			std::cout << "Enter your guess: ";
+			std::cout << "Hangman!\n\n";
+			hangStatus(lives);
+			std::cout << "Your word is: ";
+			for (int i = 0; i < wordLength; i++)
+			{
+				std::cout << WordChosenHidden[i] << " ";
+			}
+			std::cout << "\n\nLives left: " << lives << "\n";
+
+			if (guessCount > 0)
+			{
+				std::cout << "Characters guessed: ";
+				for (int i = 1; i < (guessCount + 1); i++)
+				{
+					std::cout << guessedArray[i] << " ";
+				}
+			}
+			std::cout << "\n\nEnter your guess: ";
+			char guess = 0;
 			std::cin >> guess;
+			char validCheck = 'a';
 			while ((!validInput) && (validCheck <= 'z'))
 			{
-				validCheck = 'a';
 				if (guess == validCheck)
-					validInput = true;
+					validInput = true;	//checks the validation of the character entered
 				validCheck++;
 			}
 			if (validInput)
 			{
-				while ((!letterGuessed) && (!spaceInGuessedArray))
+				for (int i = 0; i < 26; i++)
 				{
-					int i = 0;
-
-					if (guessedArray[i] == ' ')
-						spaceInGuessedArray = true;
 					if (guess == guessedArray[i])
-						letterGuessed = true;
-
-					guessedArrayPos++;
-					i++;
+						letterGuessed = true; 
 				}
-				while (!letterCorrect)
+				if (!letterGuessed)
 				{
-					for (int i = 0; i < correctArrayPos; i++)
-					{
+					for (int i = 0; i < wordLength; i++)	//for every char in the word array, the guessed letter that matches the letter in the word is 
+					{										//replaced in the display word and the guess is added to guessed array
 						if (guess == WordChosen[i])
+						{
+							WordChosenHidden[i] = guess;
 							letterCorrect = true;
+							if (strcmp(WordChosen, WordChosenHidden) == 0)
+							{
+								system("CLS");
+								std::cout << "Congratulations!\n  You've WON!\n\n";
+								win = true;
+								system("PAUSE");
+							}
+						}
 					}
-					correctArrayPos++;
+					guessCount++;
+					guessedArray[guessCount] = guess;
 				}
+				if (letterGuessed)
+				{
+					std::cout << "That input is not valid, please try again.";
+					Sleep(1200);
+					system("CLS");
+				}
+				else if (!letterCorrect)
+					lives--;
 			}
-			else
+			if (!validInput)
 			{
 				std::cout << "That input is not valid, please try again.";
+				Sleep(1200);
+				system("CLS");
 			}
 		}			
 	}
+	std::cout << " I'm sorry!\nYou've LOST!";
+	system("PAUSE");
 }
 
 void setUpWord()
@@ -191,9 +238,176 @@ void setUpWord()
 	int randWord;
 	randWord = std::rand() % 25 + 1;
 	strcpy(WordChosen, WordBank[randWord]);
-	int wordLength = strlen(WordChosen);
+	wordLength = strlen(WordChosen);
 	for (int i = 0; i < wordLength; i++)
 	{
 		WordChosenHidden[i] = '_';
 	}
 }	
+
+void hangStatus(int state)
+{
+	switch (state)
+	{
+	case 10:
+	{
+		//no lives lost
+	}
+	break;
+	case 9:
+	{
+		std::cout << "                    " << std::endl;
+		std::cout << "                    " << std::endl;
+		std::cout << "                    " << std::endl;
+		std::cout << "                    " << std::endl;
+		std::cout << "                    " << std::endl;
+		std::cout << "                    " << std::endl;
+		std::cout << "                    " << std::endl;
+		std::cout << "                    " << std::endl;
+		std::cout << "                    " << std::endl;
+		std::cout << "____________________" << std::endl;
+
+	}
+	break;
+	case 8:
+	{
+		std::cout << "                    " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "__||________________" << std::endl;
+
+	}
+	break;
+	case 7:
+	{
+		std::cout << "____________________" << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "__||________________" << std::endl;
+
+	}
+	break;
+	case 6:
+	{
+		std::cout << "____________________" << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "__||________________" << std::endl;
+
+	}
+	break;
+	case 5:
+	{
+		std::cout << "____________________" << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           O    " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "__||________________" << std::endl;
+
+	}
+	break;
+	case 4:
+	{
+
+		std::cout << "____________________" << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           O    " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "__||________________" << std::endl;
+	}
+	break;
+	case 3:
+	{
+		std::cout << "____________________" << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           O    " << std::endl;
+		std::cout << "  ||           |\\  " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "__||________________" << std::endl;
+
+	}
+	break;
+	case 2:
+	{
+		std::cout << "____________________" << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           O    " << std::endl;
+		std::cout << "  ||          /|\\  " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "__||________________" << std::endl;
+
+	}
+	break;
+	case 1:
+	{
+		std::cout << "____________________" << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           O    " << std::endl;
+		std::cout << "  ||          /|\\  " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||            \\  " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "__||________________" << std::endl;
+
+	}
+	break;
+	case 0:
+	{
+		std::cout << "____________________" << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||           O    " << std::endl;
+		std::cout << "  ||          /|\\  " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||          / \\  " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "__||________________" << std::endl;
+
+	}
+	break;
+
+	default:
+
+		break;
+	}
+
+}
