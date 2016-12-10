@@ -126,35 +126,16 @@ void runGame()	//the main bulk of the game
 	bool spaceInGuessedArray = false;
 	bool letterCorrect = false;
 	bool win = false;
-	int lives = 10;
+	int lives = 6;
 	int guessCount = 0;
 
 	setUpWord();
 	system("CLS");
-	//std::cout << WordChosenHidden << std::endl;
 	
 	while ((!win) && (lives > 0))
 	{
 		system("CLS");
 		validInput = false;
-
-		/*std::cout << "Hangman!\n\n";
-		hangStatus(lives);
-		std::cout << "Your word is: ";
-		for (int i = 0; i < wordLength; i++)
-		{
-			std::cout << WordChosenHidden[i] << " ";
-		}
-		std::cout << "\n\nLives left: " << lives << "\n";
-		
-		if (guessCount > 0)
-		{
-			std::cout << "Characters guessed: ";
-			for (int i = 1; i < (guessCount + 1); i++)
-			{
-				std::cout << guessedArray[i] << " ";
-			}
-		}*/
 
 		while (!validInput)
 		{
@@ -266,99 +247,39 @@ void hangStatus(int state)
 {
 	switch (state)
 	{
-	case 10:
+	case 6:
 	{
 		//no lives lost
 	}
 	break;
-	case 9:
-	{
-		std::cout << "                    " << std::endl;
-		std::cout << "                    " << std::endl;
-		std::cout << "                    " << std::endl;
-		std::cout << "                    " << std::endl;
-		std::cout << "                    " << std::endl;
-		std::cout << "                    " << std::endl;
-		std::cout << "                    " << std::endl;
-		std::cout << "                    " << std::endl;
-		std::cout << "                    " << std::endl;
-		std::cout << "____________________" << std::endl;
-
-	}
-	break;
-	case 8:
-	{
-		std::cout << "                    " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "__||________________" << std::endl;
-
-	}
-	break;
-	case 7:
-	{
-		std::cout << "____________________" << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "__||________________" << std::endl;
-
-	}
-	break;
-	case 6:
-	{
-		std::cout << "____________________" << std::endl;
-		std::cout << "  ||           |    " << std::endl;
-		std::cout << "  ||           |    " << std::endl;
-		std::cout << "  ||           |    " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "__||________________" << std::endl;
-
-	}
-	break;
 	case 5:
 	{
+		std::cout << "                    " << std::endl;
+		std::cout << "                    " << std::endl;
+		std::cout << "                    " << std::endl;
+		std::cout << "                    " << std::endl;
+		std::cout << "                    " << std::endl;
+		std::cout << "                    " << std::endl;
+		std::cout << "                    " << std::endl;
+		std::cout << "                    " << std::endl;
+		std::cout << "                    " << std::endl;
 		std::cout << "____________________" << std::endl;
-		std::cout << "  ||           |    " << std::endl;
-		std::cout << "  ||           |    " << std::endl;
-		std::cout << "  ||           |    " << std::endl;
-		std::cout << "  ||           O    " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "  ||                " << std::endl;
-		std::cout << "__||________________" << std::endl;
 
 	}
 	break;
 	case 4:
 	{
-
-		std::cout << "____________________" << std::endl;
-		std::cout << "  ||           |    " << std::endl;
-		std::cout << "  ||           |    " << std::endl;
-		std::cout << "  ||           |    " << std::endl;
-		std::cout << "  ||           O    " << std::endl;
-		std::cout << "  ||           |    " << std::endl;
-		std::cout << "  ||           |    " << std::endl;
+		std::cout << "                    " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
 		std::cout << "  ||                " << std::endl;
 		std::cout << "  ||                " << std::endl;
 		std::cout << "__||________________" << std::endl;
+
 	}
 	break;
 	case 3:
@@ -368,8 +289,8 @@ void hangStatus(int state)
 		std::cout << "  ||           |    " << std::endl;
 		std::cout << "  ||           |    " << std::endl;
 		std::cout << "  ||           O    " << std::endl;
-		std::cout << "  ||           |\\  " << std::endl;
-		std::cout << "  ||           |    " << std::endl;
+		std::cout << "  ||                " << std::endl;
+		std::cout << "  ||                " << std::endl;
 		std::cout << "  ||                " << std::endl;
 		std::cout << "  ||                " << std::endl;
 		std::cout << "__||________________" << std::endl;
@@ -378,17 +299,17 @@ void hangStatus(int state)
 	break;
 	case 2:
 	{
+
 		std::cout << "____________________" << std::endl;
 		std::cout << "  ||           |    " << std::endl;
 		std::cout << "  ||           |    " << std::endl;
 		std::cout << "  ||           |    " << std::endl;
 		std::cout << "  ||           O    " << std::endl;
-		std::cout << "  ||          /|\\  " << std::endl;
+		std::cout << "  ||           |    " << std::endl;
 		std::cout << "  ||           |    " << std::endl;
 		std::cout << "  ||                " << std::endl;
 		std::cout << "  ||                " << std::endl;
 		std::cout << "__||________________" << std::endl;
-
 	}
 	break;
 	case 1:
@@ -400,7 +321,7 @@ void hangStatus(int state)
 		std::cout << "  ||           O    " << std::endl;
 		std::cout << "  ||          /|\\  " << std::endl;
 		std::cout << "  ||           |    " << std::endl;
-		std::cout << "  ||            \\  " << std::endl;
+		std::cout << "  ||                " << std::endl;
 		std::cout << "  ||                " << std::endl;
 		std::cout << "__||________________" << std::endl;
 
