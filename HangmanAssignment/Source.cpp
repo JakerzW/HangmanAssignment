@@ -4,15 +4,15 @@
 #include <stdlib.h>
 #include <Windows.h>
 
-void endGame();
+void endGame();	//initiating all the functions
 void showInstructions();
 void runGame();
 void setUpWord();
 void hangStatus(int state);
 int menu();
 
-char WordBank[25][20] = { "battlefield","battlefront","mass_effect","halo","skyrim","oblivion","minecraft","fifa","counter_strike","pacman","pokemon","bioshock","portal","chivalry","grand_theft_auto","fallout","dota","overwatch","hearthstone","world_of_warcraft","guild_wars","assassins_creed","call_of_duty","crash_bandicoot","rayman" };
-char WordChosen[20];
+char WordBank[25][20] = { "battlefield","battlefront","mass_effect","halo","skyrim","oblivion","minecraft","fifa","counter_strike","pacman","pokemon","bioshock","portal","chivalry","grand_theft_auto","fallout","dota","overwatch","hearthstone","world_of_warcraft","guild_wars","assassins_creed","call_of_duty","crash_bandicoot","rayman" }; //storing all the words in the word bank
+char WordChosen[20];	//initiating the required arrays
 char WordChosenHidden[20];
 int wordLength = 0;
 
@@ -53,16 +53,16 @@ int menu() //main menu
 		std::cout << "|  |   |  | |  |   |  | |  | \\    | |  |____|  | |  | \\__/ |  | |  |   |  | |  | \\    |\n";
 		std::cout << "|__|   |__| |__|   |__| |__|  \\___| |__________| |__|      |__| |__|   |__| |__|  \\___| \n";
 		std::cout << "---------------------------------------------------------------------------------------\n";
-		std::cout << std::setw(36) << "Play Hangman" << std::setw(26) << "Press  1  \n";
+		std::cout << std::setw(36) << "Play Hangman" << std::setw(26) << "Press  1  \n";	//outputs the three options for the player
 		std::cout << std::setw(36) << "Instructions" << std::setw(26) << "Press  2  \n";
 		std::cout << std::setw(28) << "Exit" << std::setw(34) << "Press  3  \n";
 		std::cout << std::endl << std::setw(45) << "Choice: ";
-		std::cin >> choice;
+		std::cin >> choice;	//reads in the choice from the player
 		if ((choice > 3) || (choice < 0) || (choice == 0))	//checks choice for the menu
 		{
 			system("CLS");
 			test = false;
-			std::cout << "Invalid Selection\n";
+			std::cout << "Invalid Selection\n";	//outputs invalid error if input isn't valid
 			Sleep(2000);
 		}
 		else
@@ -157,7 +157,7 @@ void runGame()	//the main bulk of the game
 				}
 			}
 
-			if (strcmp(WordChosen, WordChosenHidden) == 0)	//repeat check if missed
+			if (strcmp(WordChosen, WordChosenHidden) == 0)	//repeat check if missed from original loop
 			{
 				system("CLS");
 				std::cout << "Congratulations!\n  You've WON!\n\n";
@@ -166,10 +166,10 @@ void runGame()	//the main bulk of the game
 			}
 
 			std::cout << "\n\nEnter your guess: ";
-			char guess = 0;
+			char guess = 0;	//resetting values needed for validation and checking
 			letterGuessed = false;
-			letterCorrect = false;
-			std::cin >> guess;
+			letterCorrect = false;	
+			std::cin >> guess;	//reads in the guess
 			char validCheck = 'a';
 			while ((!validInput) && (validCheck <= 'z'))
 			{
@@ -181,7 +181,7 @@ void runGame()	//the main bulk of the game
 			{
 				for (int i = 1; i < (guessCount + 1); i++)
 				{
-					if (guess == guessedArray[i])
+					if (guess == guessedArray[i])	//checks the guess made against the already guessed letters
 						letterGuessed = true; 
 				}
 				if (!letterGuessed)
@@ -190,9 +190,9 @@ void runGame()	//the main bulk of the game
 					{										//replaced in the display word and the guess is added to guessed array
 						if (guess == WordChosen[i])
 						{
-							WordChosenHidden[i] = guess;
-							letterCorrect = true;
-							if (strcmp(WordChosen, WordChosenHidden) == 0)
+							WordChosenHidden[i] = guess;	//replaces the hidden letters with the newly correct guess
+							letterCorrect = true;	
+							if (strcmp(WordChosen, WordChosenHidden) == 0)	//compares the secret and dsiplay strings, if the same then end game because it is won
 							{
 								system("CLS");
 								std::cout << "Congratulations!\n  You've WON!\n\n";
@@ -201,27 +201,27 @@ void runGame()	//the main bulk of the game
 							}
 						}
 					}
-					guessCount++;
+					guessCount++;	//increments the guesses made and adds the new guess to the guessed chars array
 					guessedArray[guessCount] = guess;
 				}
 				if (letterGuessed)
 				{
-					std::cout << "That input is not valid, please try again.";
+					std::cout << "That input is not valid, please try again.";	//tells the player the input isn't valid due to it being guessed already
 					Sleep(1200);
 					system("CLS");
 				}
 				else if (!letterCorrect)
-					lives--;
+					lives--;	//decrements lives if incorrect
 			}
 			if (!validInput)
 			{
-				std::cout << "That input is not valid, please try again.";
+				std::cout << "That input is not valid, please try again.";	//outputs error when input isn't a valid char
 				Sleep(1200);
 				system("CLS");
 			}
 		}			
 	}
-	if (lives == 0)
+	if (lives == 0)	//output when game is lost before returning to the menu
 	{
 		system("CLS");
 		std::cout << " I'm sorry!\nYou've LOST!\n\n";
@@ -230,7 +230,7 @@ void runGame()	//the main bulk of the game
 	
 }
 
-void setUpWord()
+void setUpWord()	//sets up the word to be guessed by the player
 {
 	int randWord;
 	srand(time(NULL));
@@ -243,7 +243,7 @@ void setUpWord()
 	}
 }	
 
-void hangStatus(int state)
+void hangStatus(int state)	//the drawing stage for the hangman, with each case being a different state
 {
 	switch (state)
 	{
